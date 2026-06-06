@@ -1,6 +1,6 @@
 // utils/generateReceiptPDF.js
 const puppeteer = require("puppeteer");
-const { generatePaymentReceiptHTML } = require("./paymentReceiptTemplate");
+const { generatePaymentReceiptHTML } = require("./Paymentreceipttemplate");
 
 /**
  * Generates a Payment Receipt PDF buffer for a given order.
