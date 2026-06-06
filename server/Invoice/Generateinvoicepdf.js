@@ -3,7 +3,7 @@
 // Returns a Buffer – callers can stream it directly or save to disk/Cloudinary.
 
 const puppeteer              = require("puppeteer");
-const { generateInvoiceHTML } = require("./InvoiceTemplate");
+const { generateInvoiceHTML } = require("./Invoicetemplate");
 
 /**
  * @param {Object} order      Populated Mongoose order document
