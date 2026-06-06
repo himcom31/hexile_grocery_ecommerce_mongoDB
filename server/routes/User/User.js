@@ -1,6 +1,8 @@
 // routes/user.routes.js
 const express = require('express');
 const router  = express.Router();
+const upload = require('../../config/cloudinary');
+
 
 const {
   register,
@@ -25,7 +27,7 @@ router.post('/login',    login);
 // PUT  /api/user/update-profile    → Update name, country, phone, avatar
 // PUT  /api/user/change-password   → Change password
 router.get('/me',              protectUser, getMe);
-router.put('/update-profile',  protectUser, updateProfile);
+router.put('/update-profile',  protectUser,upload.single('image'), updateProfile);
 router.put('/change-password', protectUser, changePassword);
 
 
