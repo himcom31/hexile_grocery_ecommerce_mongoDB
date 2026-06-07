@@ -9,7 +9,7 @@ const {
     deleteProduct,
 } = require('../controllers/Product_management/productController');
 
-const upload                       = require('../config/cloudinary');
+const  { upload }                      = require('../config/cloudinary');
 const { protect }         = require('../middleware/authMiddleware');
 const { addBrand, getBrands, updateBrand, deleteBrand } = require('../controllers/Product_management/brandController');
 
