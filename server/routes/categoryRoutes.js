@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/cloudinary'); 
+const { upload }= require('../config/cloudinary'); 
 const { addCategory, getCategories ,updateCategory,deleteCategory} = require('../controllers/categoryController/categoryController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
