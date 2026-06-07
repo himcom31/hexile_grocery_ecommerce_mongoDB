@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../config/cloudinary'); 
+const  { upload } = require('../config/cloudinary'); 
 const { addBanner, getBanners, deleteBanner } = require('../controllers/Apperance/bannerController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
