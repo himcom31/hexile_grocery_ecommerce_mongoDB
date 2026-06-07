@@ -4,6 +4,7 @@ const { upload }= require('../config/cloudinary');
 const { addCategory, getCategories ,updateCategory,deleteCategory} = require('../controllers/categoryController/categoryController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
 
+
 // Route: POST /api/category/add
 // Sequence badla hai taaki body parse ho sake
 router.post('/add', upload.single('thumbnail'), protect, addCategory);
