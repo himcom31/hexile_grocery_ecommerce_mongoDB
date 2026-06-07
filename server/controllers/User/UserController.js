@@ -178,22 +178,18 @@ const getMe = async (req, res) => {
 // ────────────────────────────────────────────────────
 const updateProfile = async (req, res) => {
   try {
-    const { fullName, country, phone, avatar,gender, dateOfBirth  } = req.body;
+    const { fullName, country, phone, gender, dateOfBirth } = req.body;
 
-    // If phone is being updated, check it's not taken by another user
     if (phone) {
       const phoneExists = await User.findOne({ phone, _id: { $ne: req.user._id } });
       if (phoneExists) {
-        return res.status(409).json({
-          success: false,
-          message: 'This phone number is already in use.',
-        });
+        return res.status(409).json({ success: false, message: 'This phone number is already in use.' });
       }
     }
 
     const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
-      { fullName, country, phone, avatar, gender, dateOfBirth },
+      { fullName, country, phone, gender, dateOfBirth },
       { new: true, runValidators: true }
     );
 
@@ -213,6 +209,34 @@ const updateProfile = async (req, res) => {
   }
 };
 
+// ── uploadAvatar: handles image upload to Cloudinary ──
+const uploadAvatar = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'No file uploaded.' });
+    }
+
+    // multer-storage-cloudinary puts the URL in req.file.path
+    const avatarUrl = req.file.path;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user._id,
+      { avatar: avatarUrl },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: 'Avatar updated successfully.',
+      avatar: updatedUser.avatar,
+      user: sanitizeUser(updatedUser),
+    });
+
+  } catch (error) {
+    console.error('UploadAvatar error:', error);
+    return res.status(500).json({ success: false, message: 'Server error.' });
+  }
+};
 
 // ────────────────────────────────────────────────────
 // @route   PUT /api/user/change-password
@@ -277,14 +301,7 @@ const changePassword = async (req, res) => {
 };
 
 
-module.exports = {
-  register,
-  login,
-  getMe,
-  updateProfile,
-  changePassword,
-};
-
+module.exports = { register, login, getMe, updateProfile, changePassword, uploadAvatar };
 
 
 ///////////////////////////////////////////////////////////////////////////////////
