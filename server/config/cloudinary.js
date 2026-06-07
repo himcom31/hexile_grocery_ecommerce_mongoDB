@@ -17,6 +17,16 @@ const storage = new CloudinaryStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const avatarStorage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'ReadyGrocery/Avatars',
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+    transformation: [{ width: 200, height: 200, crop: 'fill', gravity: 'face' }],
+  },
+});
 
-module.exports = upload;
+const upload = multer({ storage: storage });
+const uploadAvatar = multer({ storage: avatarStorage });
+
+module.exports = { upload, uploadAvatar };
