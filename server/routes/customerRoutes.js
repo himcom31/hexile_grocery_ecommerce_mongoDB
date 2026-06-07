@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { addCustomer, getAllCustomers ,updateCustomer,deleteCustomer} = require('../controllers/customerController');
 const { protect, isAdmin } = require('../middleware/authMiddleware');
-const upload = require('../config/cloudinary');
+const { upload } = require('../config/cloudinary');
 
 
 // Admin only routes
